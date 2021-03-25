@@ -1,62 +1,86 @@
+
+// class TableRow extends React.Component {
+//   render() {
+//     const list = this.props.list;
+
+//     return (
+//       <tr>
+//         <td>{list.id}</td>
+//         <td>{list.price}</td>
+//         <td>{list.name}</td>
+//       </tr>
+//     );
+//   }
+// }
+
+// class RenderTable extends React.Component {
+  
+
+//   render() {
+//     const rows = []; 
+//     let id = 0;
+//     this.props.list.forEach((list) => {
+//       rows.push(
+//         <TableRow
+//           list={list}
+//           key={list.name} 
+//           id={id++}/>
+//       );
+//     });
+
+
+//     return (
+//       <table border="1">
+//         <tbody>{rows}</tbody>
+//       </table>
+//     );
+//   }
+// }
+
+ 
+// ReactDOM.render(
+//   <RenderTable list={list} />,
+//   document.getElementById('root')
+// );
+
+
 const list = [
-{ id: 'i_20', price: 2300, name: 'Example_1' }, 
-{ id: 'i_21', price: 2301, name: 'Example_2' }, 
-{ id: 'i_22', price: 2302, name: 'Example_3' },
-{ id: 'i_23', price: 2303, name: 'Example_4' },
-{ id: 'i_24', price: 2304, name: 'Example_5' },
-{ id: 'i_25', price: 2305, name: 'Example_6' }
-]
+  { id: 'i_20', price: 2300, name: 'Example_1' }, 
+  { id: 'i_21', price: 2301, name: 'Example_2' }, 
+  { id: 'i_22', price: 2302, name: 'Example_3' },
+  { id: 'i_23', price: 2303, name: 'Example_4' },
+  { id: 'i_24', price: 2304, name: 'Example_5' },
+  { id: 'i_25', price: 2305, name: 'Example_6' }
+];
 
-
-class RenderTable extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = {
-            localTable: [...props.table]
-        };
-
-        randomProperty = function (obj) {
-            let item = obj[Math.floor(Math.random()*obj.length)];
-            let keys = Object.keys(item)
-            let randomObj = item[keys[ keys.length * Math.random() << 0]];
-            return randomObj
-        };
-
-        setTimeout(() => {
-            this.setState({
-                localTable: this.state.localTable
-            });
-            console.log(randomProperty(this.state.localTable))
-            console.log(this.state.localTable)
-
-        }, 1000);
-        
-    };
-
-    render() {
-      function makeColumns(row) { 
-        return <td>{row.id} {row.price} {row.name}</td>
-      }
+function MyTable() {
+  const [state, setState] = React.useState(list);
+  let number = 0;
+  console.log(state)
   
-      const tableTemplate = list.map((row, i) => {
-        return <tr key={i}>{makeColumns(row)}</tr>
-      })
-  
-      return (
-        <table>
-          <tbody>
-            {tableTemplate}
-          </tbody>
-        </table>
-      );
-      
-    };
-};
 
-const root = <RenderTable table={list}/>
+  return (
+    <table border="1">
+      <tbody>
+        {state.map((item) => (
+          <tr key={item.id}>
+            
+            {Object.values(item).map((val) => (
+
+              <td className={number++} key={number}>{val}</td>
+              
+            ))
+             }
+          </tr>
+          
+        ))}
+      </tbody>
+    </table>
+    
+  );
+}
 
 ReactDOM.render(
-    root,
-    document.getElementById('root')
+  <MyTable list={list}/>,
+  document.getElementById("root")
 );
